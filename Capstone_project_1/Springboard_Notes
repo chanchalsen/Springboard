@@ -1,0 +1,805 @@
+Take multiple data points
+Do feature engineering 
+Take complex data
+Apply statistical analytics
+Use sampling for large data set and check how to choose the best way to model the data if we have just a laptop with a 5gb of memory
+Choosing the right set of data is important
+create many features
+EDA needs to done after feature creation
+Look for correct metrics while choosing the algorithm
+Logistic Regression- 
+Linear Regression-
+
+MOM:
+1) Sould be able to do data wrangling
+2) Always take problem has 2-3 data sets .
+3) Do feature engineering
+4) Data 30 GB (Use stastical) - Central limit theorem - Random Sampling
+5) Can we take up a Kaggle competition ?
+6) Should be having categorical, Rating - how will you treat it?
+7) Should have time constraint. Use all the alog possible
+8) different snap shot at differnt time for a same custoomer
+9) Applying Algorithm and feature selection (EDA tells about feature,.9 correlation,)
+10) Xgi-Boost, Random forest, PCA, Logistic regression, 
+11) Tree based approach - 
+12) Use hyper-parameter ( max depth, learning depth,min child , feature fraction, positive bagging , neative bagging, random search, grip, bernis hyper op,cross validation )
+13) Model Evaluation- Genie, log loss, confusion matrix, , which metric you are looking for? How a feature is impacting other
+14) sometimes droppping a feature is good . Logically infer.
+
+Participate in hackathon, Analytics Vidya hackathon, Kaggle
+
+abhinokha@gmail.com
+
+
+Program:
+rarebirds = {
+    'Gold-crested Toucan': {
+        'Height (m)': 1.1,
+        'Weight (kg)': 35,
+        'Color': 'Gold',
+        'Endangered': True,
+        'Aggressive': True
+    }
+,
+    'Pearlescent Kingfisher': {
+        'Height (m)': 0.25,
+        'Weight (kg)': 0.5,
+        'Color': 'White',
+        'Endangered': False,
+        'Aggressive': False
+    }
+,
+    'Four-metre Hummingbird': {
+        'Height (m)': 0.6,
+        'Weight (kg)': 0.5,
+        'Color': 'Blue',
+        'Endangered': True,
+        'Aggressive': False
+    }
+,
+    'Giant Eagle': {
+        'Height (m)': 1.5,
+        'Weight (kg)': 52,
+        'Color': 'Black and White',
+        'Endangered': True,
+        'Aggressive': True
+    }
+,
+    'Ancient Vulture': {
+        'Height (m)': 2.1,
+        'Weight (kg)': 70,
+        'Color': 'Brown',
+        'Endangered': False,
+        'Aggressive': False
+    }
+}
+
+birdlocation = [
+    'In the canopy directly above our heads.',
+    'Between my 6 and 9 o’clock above.',
+    'Between my 9 and 12 o’clock above.', 
+    'Between my 12 and 3 o’clock above.', 
+    'Between my 3 and 6 o’clock above.', 
+    'In a nest on the ground.', 
+    'Right behind you.'   
+] 
+codes = {
+    '111' : birdlocation[0],
+    '110' : birdlocation[1],
+    '101' : birdlocation[2],
+    '100' : birdlocation[3],
+    '011' : birdlocation[5],
+    '010' : birdlocation[5],
+    '001' : birdlocation[6]   
+        }
+
+actions = ['Back Away', 'Cover our Heads', 'Take a Photograph']
+
+print(rarebirds['Giant Eagle']['Aggressive'])
+
+for k, v in rarebirds.items():
+    print(k)
+    if v['Aggressive']:
+        print(actions[1])
+    if v['Endangered']:
+        print(actions[0])
+
+for k, v in codes.items():
+    print('Code: {} implies: {}'.format(k,v))
+    
+for k, v in rarebirds.items():
+    v['seen'] = False
+    
+encounter = True
+
+while encounter:
+    sighting = input('What do you see?')
+    sighting.lower()
+
+    rarebirdsList = rarebirds.keys()
+
+    if sighting in rarebirdsList:
+        print('this is one of the birds we’re looking for!')
+    else:
+        print('that’s not one of the birds we’re looking for')
+
+    code = input('Where do you see it?')
+    location = codes[code]
+
+    print("So you've seen a",sighting, location,'My goodness.')
+
+    for k , v in rarebirds.items():
+        if k == sighting:
+            encounter = False
+            if v['Aggressive']:
+                print('{} it’s aggressive, {} and {}'.format(sighting, actions[0], actions[1]))
+                print('{} of the {} at its {}'.format(actions[2], sighting, location))
+            elif v['Endangered']:
+                print('{} its endangered, we need to {}'.format(sighting, actions[0]))
+            else:
+                print('{} is neither aggressive nor endangered'.format(sighting))
+                print('{} of the {} at its {}'.format(actions[2], sighting, location))
+            
+--------------------------------------------------
+
+
+# Import matplotlib.pyplot
+import matplotlib.pyplot as plt
+
+# Set the style to 'ggplot'
+plt.style.use('ggplot')
+
+# Create a figure with 2x2 subplot layout
+plt.subplot(2, 2, 1) 
+
+# Plot the enrollment % of women in the Physical Sciences
+plt.plot(year, physical_sciences, color='blue')
+plt.title('Physical Sciences')
+
+# Plot the enrollment % of women in Computer Science
+plt.subplot(2, 2, 2)
+plt.plot(year, computer_science, color='red')
+plt.title('Computer Science')
+
+# Add annotation
+cs_max = computer_science.max()
+yr_max = year[computer_science.argmax()]
+plt.annotate('Maximum', xy=(yr_max, cs_max), xytext=(yr_max-1, cs_max-10), arrowprops=dict(facecolor='black'))
+
+# Plot the enrollmment % of women in Health professions
+plt.subplot(2, 2, 3)
+plt.plot(year, health, color='green')
+plt.title('Health Professions')
+
+# Plot the enrollment % of women in Education
+plt.subplot(2, 2, 4)
+plt.plot(year, education, color='yellow')
+plt.title('Education')
+
+# Improve spacing between subplots and display them
+plt.tight_layout()
+plt.show()
+
+
+----------------------------------------
+
+
+# Import numpy and matplotlib.pyplot
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Generate two 1-D arrays: u, v
+u = np.linspace(-2, 2, 41)
+v = np.linspace(-1, 1, 21)
+
+# Generate 2-D arrays from u and v: X, Y
+X,Y = np.meshgrid(u,v)
+
+# Compute Z based on X and Y
+Z = np.sin(3*np.sqrt(X**2 + Y**2)) 
+
+# Display the resulting image with pcolor()
+plt.pcolor(Z)
+plt.show()
+
+# Save the figure to 'sine_mesh.png'
+plt.savefig('sine_mesh.png')
+
+
+------------------------------------------
+
+
+# Create a filled contour plot with a color map of 'viridis'
+plt.subplot(2,2,1)
+plt.contourf(X,Y,Z,20, cmap='viridis')
+plt.colorbar()
+plt.title('Viridis')
+
+# Create a filled contour plot with a color map of 'gray'
+plt.subplot(2,2,2)
+plt.contourf(X,Y,Z,20, cmap='gray')
+plt.colorbar()
+plt.title('Gray')
+
+# Create a filled contour plot with a color map of 'autumn'
+plt.subplot(2,2,3)
+plt.contourf(X,Y,Z,20, cmap='autumn')
+plt.colorbar()
+plt.title('Autumn')
+
+# Create a filled contour plot with a color map of 'winter'
+plt.subplot(2,2,4)
+plt.contourf(X,Y,Z,20, cmap='winter')
+plt.colorbar()
+plt.title('Winter')
+
+# Improve the spacing between subplots and display them
+plt.tight_layout()
+plt.show()
+
+-----------------------------------------
+
+# Load the image into an array: img
+img = plt.imread('480px-Astronaut-EVA.jpg')
+
+# Specify the extent and aspect ratio of the top left subplot
+plt.subplot(2,2,1)
+plt.title('extent=(-1,1,-1,1),\naspect=0.5') 
+plt.xticks([-1,0,1])
+plt.yticks([-1,0,1])
+plt.imshow(img, extent=(-1,1,-1,1), aspect=0.5)
+
+# Specify the extent and aspect ratio of the top right subplot
+plt.subplot(2,2,2)
+plt.title('extent=(-1,1,-1,1),\naspect=1')
+plt.xticks([-1,0,1])
+plt.yticks([-1,0,1])
+plt.imshow(img, extent=(-1,1,-1,1), aspect=1)
+
+# Specify the extent and aspect ratio of the bottom left subplot
+plt.subplot(2,2,3)
+plt.title('extent=(-1,1,-1,1),\naspect=2')
+plt.xticks([-1,0,1])
+plt.yticks([-1,0,1])
+plt.imshow(img, extent=(-1,1,-1,1), aspect=2)
+
+# Specify the extent and aspect ratio of the bottom right subplot
+plt.subplot(2,2,4)
+plt.title('extent=(-2,2,-1,1),\naspect=2')
+plt.xticks([-2,-1,0,1,2])
+plt.yticks([-1,0,1])
+plt.imshow(img, extent=(-2,2,-1,1), aspect=2)
+
+# Improve spacing and display the figure
+plt.tight_layout()
+plt.show()
+
+------------------------------------------
+
+
+# Import plotting modules
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Plot a linear regression between 'weight' and 'hp'
+sns.lmplot(x='weight', y='hp', data=auto)
+
+# Display the plot
+plt.show()
+
+
+-----------------------------------------
+
+# Import plotting modules
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Generate a green residual plot of the regression between 'hp' and 'mpg'
+sns.residplot(x='hp', y='mpg', data=auto, color='green')
+
+# Display the plot
+plt.show()
+
+-----------------------------------------
+
+
+# Generate a scatter plot of 'weight' and 'mpg' using red circles
+plt.scatter(auto['weight'], auto['mpg'], label='data', color='red', marker='o')
+
+# Plot in blue a linear regression of order 1 between 'weight' and 'mpg'
+sns.regplot(x='weight', y='mpg', data=auto, color='blue' , scatter=None, label='First Order')
+
+# Plot in green a linear regression of order 2 between 'weight' and 'mpg'
+sns.regplot(x='weight', y='mpg', data=auto, color='green' , scatter=None, label='Second Order', order=2)
+
+# Add a legend and display the plot
+plt.legend(loc='upper right')
+plt.show()
+
+----------------------------------------
+
+
+# Plot a linear regression between 'weight' and 'hp', with a hue of 'origin' and palette of 'Set1'
+sns.lmplot(x='weight', y='hp', hue='origin', palette='Set1', data=auto)
+
+# Display the plot
+plt.show()
+
+---------------------------------------
+
+# Plot linear regressions between 'weight' and 'hp' grouped row-wise by 'origin'
+sns.lmplot(x='weight', y='hp', row='origin', data=auto)
+
+# Display the plot
+plt.show()
+
+---------------------------------------
+
+# Make a strip plot of 'hp' grouped by 'cyl'
+plt.subplot(2,1,1)
+sns.stripplot(x='cyl', y='hp', data=auto)
+
+# Make the strip plot again using jitter and a smaller point size
+plt.subplot(2,1,2)
+sns.stripplot(x='cyl', y='hp', data=auto, jitter=True, size=3)
+
+# Display the plot
+plt.show()
+
+---------------------------------------
+
+# Generate a swarm plot of 'hp' grouped horizontally by 'cyl'  
+plt.subplot(2,1,1)
+sns.swarmplot(x='cyl', y='hp', data=auto)
+
+# Generate a swarm plot of 'hp' grouped vertically by 'cyl' with a hue of 'origin'
+plt.subplot(2,1,2)
+sns.swarmplot(x='cyl', y='hp', data=auto, hue='origin')
+
+# Display the plot
+plt.show()
+
+
+---------------------------------------
+
+# Generate a swarm plot of 'hp' grouped horizontally by 'cyl'  
+plt.subplot(2,1,1)
+sns.swarmplot(x='cyl', y='hp', data=auto)
+
+# Generate a swarm plot of 'hp' grouped vertically by 'cyl' with a hue of 'origin'
+plt.subplot(2,1,2)
+sns.swarmplot(x='hp', y='cyl', data=auto, hue='origin', orient='h')
+
+# Display the plot
+plt.show()
+
+---------------------------------------
+
+# Generate a violin plot of 'hp' grouped horizontally by 'cyl'
+plt.subplot(2,1,1)
+sns.violinplot(x='cyl', y='hp', data=auto)
+
+# Generate the same violin plot again with a color of 'lightgray' and without inner annotations
+plt.subplot(2,1,2)
+sns.violinplot(x='cyl', y='hp', data=auto, color='lightgray', inner=None)
+
+# Overlay a strip plot on the violin plot
+sns.stripplot(x='cyl', y='hp', data=auto, jitter=True, size=1.5)
+
+# Display the plot
+plt.show()
+
+----------------------------------------
+
+
+# Generate a joint plot of 'hp' and 'mpg'
+sns.jointplot(x='hp',y='mpg',data=auto)
+
+# Display the plot
+plt.show()
+
+---------------------------------------
+
+# Print the first 5 rows of the DataFrame
+print(auto.head())
+
+# Plot the pairwise joint distributions from the DataFrame 
+sns.pairplot(auto)
+
+# Display the plot
+plt.show()
+
+---------------------------------------
+
+
+# Print the first 5 rows of the DataFrame
+print(auto.head())
+
+# Plot the pairwise joint distributions grouped by 'origin' along with regression lines
+sns.pairplot(auto, kind='reg', hue='origin')
+
+# Display the plot
+plt.show()
+
+--------------------------------------
+
+
+
+
+
+
+
+
+Doubts:
+When to use meshgrid
+What are these three variables: count, bin, pathches = plt.hist(x, bins=25)
+Difference between even and uneven samples
+what is aspect ratio for an uneven sample
+Difference between sns.lmplot() and sns.regplot()
+Difference between univariate and multivariate distributions
+Difference between pair plots and heat map
+subplots(nrows=2, ncols=2)
+
+
+
+Capstone project 1:
+1. Data storytelling:
+	What is the goal?
+	a. Predict future data?
+	b. Explain and understand the phenomenon/
+	c. Test a hypothesis?
+	d. Compare two groups?
+	e. Dimension reduction?
+	f. Build a good recommendation system?
+	g. Decide on a course of action or a ploicy?
+2. Who cares?
+
+Key points:
+	a. Show a lot of visuals
+	b. Who is your audience
+	c. What questions are you answering
+	d. Why should the audience care
+	e. What are your major insights and surprises?
+	f. What change to you want to effect?
+
+
+
+
+Predictions:
+	1. Conversion rate of a lead
+	2. Default rate of a lead
+	3. Prediction of conversion based on source of origination of lead
+
+Input dataset:
+-- hevodata.leads
+-- lk_reports.overdue_report_master
+-- lk_master.lk_direct_master
+-- lk_master.lk_loan_master
+-- lk_master.lk_t_n_c_details
+
+Can you count something interesting?
+	1. Role of Geographic and demographic parameters of a lead towards loan repayment
+	2. Intense of conversion (whether really intended or just for his/her knowledge) looking at the leads intensity from their communication
+	3. Based on terms data and revision trend we can predict the probabalility of acceptance/revision
+	4. Based on assets and status, the impact on conversion
+
+Can you find trends (e.g. high, low, increasing, decreasing, anomalies)?
+	1. Based on credit/debit we can see the rate of cash inflow/outflow
+	2. Based on Sms data having porfolio data we can calulate the expense portfolio(where the money is mostly spent)
+	3. Based on cibil scrub, the probalility of identifying the lead as a returning customer 
+	4. Trend of a customers self serve intensity
+
+Can you make a bar plot or a histogram?
+	1. Tornado chart having disbursal and default data
+	2. Make bins based on cibil score vs disbursal count
+	3. Make bins based on risk bucket and loan amount vs acceptance count
+	4. Create a sankey diagram based on source inflow vs conversion
+	5. Based on revision data vs conversion rate
+
+Can you make a scatterplot?
+	1. Loan amount vs interest rate
+	2. Risk bucket vs loan amount
+	3. Cibil score and case count 
+
+Can you make a time-series plot?
+	1. Cibil score(director master) vs disbursal date(loan account master), or directly from application table
+	2. Disbursal rate vs disbursal count (applications table)
+	3. Creation time vs inflow count (leads table-created_Date, lead_count)
+	4. created time vs terms count/disbursal count
+
+As part of story telling state your approach giving results.
+Story telling should give the opportunity of deep discussion
+Get other people confident
+
+
+Bootstrap- How to get the sample
+Frequentist - No assumptions avaialble, no prior belief, can you repeat the expirement, most real life a frequentist
+Bayesian- having prior belief, no repetion of experiments, critical and costly
+
+
+1. Convert your result into a business metric
+2. Having sometime new can impact the business
+
+
+
+
+stanford course: cs 229
+chris bishop: machine learning
+
+learning how to learn
+
+
+
+API key: ZU4wqCrr1K_-a_Hdh5km
+
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+
+Frequentist inference:
+
+
+
+
+Bootstrap inference:
+
+
+
+
+
+Bayesian inference:
+
+
+
+
+Liner Regression(Least Squares):
+
+
+
+Logistic Regression:
+
+
+
+Supervised and Un-supervised Learning:
+
+
+
+
+Gradient Descent:
+https://towardsdatascience.com/understanding-the-mathematics-behind-gradient-descent-dde5dc9be06e
+https://www.youtube.com/watch?v=sDv4f4s2SB8&t=698s
+
+
+
+
+Batch Gradient Descent: 
+
+
+
+
+Stochastic Gradient Descent:
+
+
+
+
+Underfitting and Overfitting:
+https://www.youtube.com/watch?v=ICCA3-7a5bw&list=PLYwpaL_SFmcBhOEPwf5cFwqo5B-cP9G4P&index=4
+
+
+
+
+Locally Weighted Regression:
+
+
+
+Linear Discriminant Analysis:
+https://www.youtube.com/watch?v=azXCzI57Yfc
+
+
+Newton's Method:
+https://www.youtube.com/watch?v=28BMpgxn_Ec
+
+
+
+
+Exponential Family:
+
+
+
+
+Bernoulli Example: 
+https://towardsdatascience.com/understanding-bernoulli-and-binomial-distributions-a1eef4e0da8f
+
+
+
+Gaussian Example: 
+
+
+
+General Linear Models (GLMs): 
+
+
+
+
+Multinomial Example: 
+
+
+
+
+
+Softmax Regression:
+
+
+
+
+Bayes theorem:
+https://www.youtube.com/watch?v=ADaxql883-M&list=PLYwpaL_SFmcBhOEPwf5cFwqo5B-cP9G4P&index=21
+https://www.youtube.com/watch?v=Fv_LGQKgWi0&list=PLYwpaL_SFmcBhOEPwf5cFwqo5B-cP9G4P&index=22
+
+
+
+
+Naive Bayes:
+https://www.youtube.com/watch?v=mzPHmNm_NrM&list=PLYwpaL_SFmcBhOEPwf5cFwqo5B-cP9G4P&index=23
+
+
+Laplace Smoothing:
+https://www.youtube.com/watch?v=gCI-ZC7irbY
+
+
+
+Multinomial Distribution:
+https://www.youtube.com/watch?v=8vv9julkQEA
+
+
+
+Non- Linear Classifiers:
+https://www.youtube.com/watch?v=owsAQ_fiwIw
+
+
+Neural Networks Introduction:
+https://www.youtube.com/watch?v=bfmFfD2RIcg
+https://www.youtube.com/watch?v=8eaORgKmmh4
+https://www.youtube.com/watch?v=EYeF2e2IKEo
+
+
+Support Vector Machines (SVM):
+Pre-requisite
+The bias/variance tradeoff: https://youtu.be/EuBBz3bI-aA
+Cross Validation: https://youtu.be/fSytzGwwBVw
+
+https://www.youtube.com/watch?v=efR1C6CvhmE
+https://www.youtube.com/watch?v=Y6RRHw9uN9o
+
+
+
+the z-statistic
+the t-statistic
+the difference and relationship between the two
+the Central Limit Theorem, its assumptions and consequences
+how to estimate the population mean and standard deviation from a sample
+the concept of a sampling distribution of a test statistic, particularly for the mean
+how to combine these concepts to calculate confidence intervals and p-values
+how those confidence intervals and p-values allow you to perform hypothesis (or A/B) tests
+
+
+3 types of projects you should do if you are just diving into #datascience, #machinelearning. 
+Here are a few pointers -
+
+✔️ Exploratory Data Analysis ( EDA ) Projects ✔️
+
+Practice on the dataset at
+https://lnkd.in/gztCfy3
+https://lnkd.in/gFasqNi
+https://lnkd.in/grvF-jc
+https://lnkd.in/gPsxf5y
+https://lnkd.in/gDKuhEf 
+https://lnkd.in/g_SRS7F
+
+✔️ Prediction Modelling Projects ✔️
+
+Practice on the dataset at
+https://lnkd.in/gQh6SRZ 
+https://lnkd.in/g5JfbeA
+https://lnkd.in/gPG6Wgf 
+https://lnkd.in/gYBE6DY 
+
+✔️ Data Visualization Projects ✔️
+
+Practice on the dataset at:
+https://lnkd.in/gWZJ3TZ
+https://lnkd.in/gih7YDd 
+https://lnkd.in/gcv2xar
+
+
+After my understanding I have collated most of the problems in detail for you. Have a look:
+
+Course content:
+1. The content is huge and the timeline is short. It requires a minimum of a year to complete the entire course with the desired level of learning.
+2. It really sucks as most of the content is free and has redirections to external resources. No effort is seen by Springboard towards content creation and certainly charging this huge for just collating materials from the internet doesn't make sense.
+3. Content is just being dragged with minute details stretched with no impact.
+4. A tight schedule is making students to just complete the course without actually learning in details. Further extension induces gap and disconnect which again boils down to revisiting things from scratch.
+5. One month pause is not justified as students would need pause to complete the course and that cant happen real quick and if people go for extension they loose course access as well
+
+Extra classroom session:
+1. People taking separate classroom sessions are also hugely dissatisfied and expectations don't seem to be met.
+
+Pricing:
+1. Your competitors give better content at 1/3 of your price. 
+2. Indian market and US markets are not the same. We value for money and that itself it not served.
+
+Mentor Feedback:
+1. A half an hour timeline is probably too less to work on
+2. Most of them suggest looking over the internet, which can be anyway done
+
+Career services:
+1. It is certainly not that beneficial for the experienced persons as they would be knowing things already that are being suggested by the team.
+
+
+Possible proposed solution by the students with the percentage of probability:
+1. Take partial refund - 40%
+2. Take full refund - 50%
+3. Improve course content - 10%
+
+Instead of doing it individually if we do in a group of 2 or 3 it would be benificial.
+
+LInks:
+https://cloud.google.com/products/ai/ml-comic-2 
+https://www.mladdict.com/neural-network-simulator
+
+
+
+
+subrats04@gmail.com 
+
+
+
+
+
+
+
+
+
+
+
+Story telling:
+
+EDA:
+1. min max transformation scaling normalisation 
+
+Predictions:
+1. eligibility -  classification  risk prediction
+	- build a classifier
+	- 
+2. slab - continous prediction model regression 
+
+Predict how much money should be given
+
+Methods:
+1. Linear regression
+2. Decision Trees - CART- Classification and regression trees
+3. SVM 
+4. XG-Boost
+4. Neural Network
+
+Categorical variables- Convert it to one hot representation
+ensumble approaches- mix decision trees and other approaches 
+
+symbolic and numeric data
+
+How good is your model is: Cross-validation, training and testing data set
+
+Assumptions/hyper -parameters are important
+
+Rubric:
+1. Convincing that why we need to solve this problem
+2. Steps for EDA
+3. Which method you are using
+
+
+1. Steps:
+- Do customer profiling: type of loan, industry, company- tenure, revenue, director details-age, financial factors- 90dadb, 3mavgrev, liabilities-lk_analytics_mysql-stg_derived_data, location-loan_master, cibil score-min_cibil_score, terms- loan_amount, tenure, interest_rate - applications, performance post disbursal- emi_dpd has ever crossed zero- emi_performance
+
+
+Training Data: performance of features selected, then categorize
+Testing Data: with new features predict risk bucket

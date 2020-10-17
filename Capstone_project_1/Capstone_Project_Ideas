@@ -1,0 +1,13 @@
+1. Predicting the credibility of a person of getting a loan 
+
+Comments: Too broad and common
+
+
+2. How long can a loan last (basically predicting the time until a loan is paid off)
+
+Comments: common problem and sample data set available in kaggle
+
+
+3. Predicting the returning customer ( predict the current customer can be a potential returning customer and his chances of getting the next loan)
+
+Comments: Sound good but requires sample data points.
